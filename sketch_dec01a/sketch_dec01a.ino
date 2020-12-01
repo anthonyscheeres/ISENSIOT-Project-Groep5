@@ -1,7 +1,6 @@
 
 /*
  * 
- * Github: https://github.com/mobizt
  * 
  *
 */
@@ -13,25 +12,9 @@
 //1. Change the following info
 #define FIREBASE_HOST "isensiot.firebaseio.com"
 #define FIREBASE_AUTH "mj33QNFCJaR92P8ywIltvjVy00jifRhytxR4J8Fe"
-#define WIFI_SSID "****"
-#define WIFI_PASSWORD "****"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#define WIFI_SSID "Toverberg"
+#define WIFI_PASSWORD "WilhelmP32"
+#define ID_HASH "/21232f297a57a5a743894a0e4a801fc3e033ba9cd693f9e833c72e9055d2c491"
 
 
 
@@ -64,85 +47,49 @@ void setup()
   //4. Enable auto reconnect the WiFi when connection lost
   Firebase.reconnectWiFi(true);
 
-  //5. Try to set int data to Firebase
-  //The set function returns bool for the status of operation
-  //firebaseData requires for sending the data
-  if(Firebase.setInt(firebaseData, "/LED_Status", 1))
-  {
-    //Success
-     Serial.println("Set int data success");
-
-  }else{
-    //Failed?, get the error reason from firebaseData
-
-    Serial.print("Error in setInt, ");
-    Serial.println(firebaseData.errorReason());
-  }
+}
 
 
-  //6. Try to get int data from Firebase
-  //The get function returns bool for the status of operation
-  //firebaseData requires for receiving the data
-  if(Firebase.getInt(firebaseData, "/LED_Status"))
-  {
-    //Success
-    Serial.print("Get int data success, int = ");
-    Serial.println(firebaseData.intData());
+void sendJson(FirebaseJson json, String doc){
 
-  }else{
-    //Failed?, get the error reason from firebaseData
+//doc path esample like: doc="/test" 
 
-    Serial.print("Error in getInt, ");
-    Serial.println(firebaseData.errorReason());
-  }
+if (Firebase.pushJSON(firebaseData, doc, json)) {
 
-  /*
+  Serial.println(firebaseData.dataPath());
 
-  In case where you want to set other data types i.e. bool, float, double and String, you can use setBool, setFloat, setDouble and setString.
-  If you want to get data which you known its type at specific node, use getInt, getBool, getFloat, getDouble, getString.
-  If you don't know the data type at specific node, use get and check its type.
+  Serial.println(firebaseData.pushName());
 
-  The following shows how to get the variant data
+  Serial.println(firebaseData.dataPath() + "/"+ firebaseData.pushName());
 
-  */
-
- if(Firebase.get(firebaseData, "/LED_Status"))
-  {
-    //Success
-    Serial.print("Get variant data success, type = ");
-    Serial.println(firebaseData.dataType());
-
-    if(firebaseData.dataType() == "int"){
-      Serial.print("data = ");
-      Serial.println(firebaseData.intData());
-    }else if(firebaseData.dataType() == "bool"){
-      if(firebaseData.boolData())
-        Serial.println("data = true");
-      else
-        Serial.println("data = false");
-    }
-
-  }else{
-    //Failed?, get the error reason from firebaseData
-
-    Serial.print("Error in get, ");
-    Serial.println(firebaseData.errorReason());
-  }
-
-  /*
-
-  If you want to get the data in realtime instead of using get, see the stream examples.
-  If you want to work with JSON, see the FirebaseJson, jsonObject and jsonArray examples.
-
-  If you have questions or found the bugs, feel free to open the issue here https://github.com/mobizt/Firebase-ESP8266
-
-  */
-
-
-
+} else {
+  Serial.println(firebaseData.errorReason());
+}
 
 }
 
+
 void loop()
 {
+  //initialize json object 
+  FirebaseJson json;
+
+  //initialize sensor data objects
+  String time = "0";
+  String ultrasoonSensor = "0";
+  String lightSensor = "0";
+  String moistureSensor = "0";
+  
+  json.set("time", time);
+  json.set("ultrasoonSensor", ultrasoonSensor);
+  json.set("lightSensor", lightSensor);
+  json.set("moistureSensor", moistureSensor);
+
+  sendJson(json,ID_HASH);
+
+  //60 * 60 * 1000
+  int hour = 3600000;
+
+  delay(hour);
+
 }
