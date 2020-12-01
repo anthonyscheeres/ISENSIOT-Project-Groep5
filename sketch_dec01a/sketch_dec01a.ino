@@ -12,8 +12,8 @@
 //1. Change the following info
 #define FIREBASE_HOST "isensiot.firebaseio.com"
 #define FIREBASE_AUTH "mj33QNFCJaR92P8ywIltvjVy00jifRhytxR4J8Fe"
-#define WIFI_SSID "Toverberg"
-#define WIFI_PASSWORD "WilhelmP32"
+#define WIFI_SSID "****"
+#define WIFI_PASSWORD "****"
 #define ID_HASH "/21232f297a57a5a743894a0e4a801fc3e033ba9cd693f9e833c72e9055d2c491"
 
 
