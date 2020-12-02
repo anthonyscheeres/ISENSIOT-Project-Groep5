@@ -51,10 +51,6 @@ void sendJson(FirebaseJson json, String doc){
 
 if (Firebase.pushJSON(firebaseData, doc, json)) {
 
-  Serial.println(firebaseData.dataPath());
-
-  Serial.println(firebaseData.pushName());
-
   Serial.println(firebaseData.dataPath() + "/"+ firebaseData.pushName());
 
 } else {
