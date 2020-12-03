@@ -67,12 +67,13 @@ void loop()
 
   // Initialize sensor data objects
   String time = "0";
+
   String ultrasoonSensor = "0";
   String lightSensor = "0";
   String moistureSensor = "0";
 
 // You need to get the sensor data here 
-
+// Example: ultrasoonSensor = analogRead(sensorPin);
 
 
  // The data is copied to the json opject from here  
