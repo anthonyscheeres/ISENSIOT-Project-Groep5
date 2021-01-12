@@ -66,22 +66,18 @@ void loop()
   FirebaseJson json;
 
   // Initialize sensor data objects
-  String time = "0";
-
-  String ultrasoonSensor = "0";
-  String lightSensor = "0";
-  String moistureSensor = "0";
+    public double lightSensorLuxValue = 0;
+    public boolean moistureSensorIsMoist = false;
+    public boolean laserLengthReached = false;
+    public double laserLengthInMm = 0;
 
 // You need to get the sensor data here 
-// Example: ultrasoonSensor = analogRead(sensorPin);
-
 
  // The data is copied to the json opject from here  
-  json.set("time", time);
-  json.set("ultrasoonSensor", ultrasoonSensor);
-  json.set("lightSensor", lightSensor);
-  json.set("moistureSensor", moistureSensor);
-  
+  json.set("lightSensorLuxValue", lightSensorLuxValue);
+  json.set("moistureSensorIsMoist", moistureSensorIsMoist);
+  json.set("laserLengthReached", laserLengthReached);
+  json.set("laserLengthInMm", laserLengthInMm);
   // The is hash is used to identify devices
   sendJson(json,ID_HASH);
 
