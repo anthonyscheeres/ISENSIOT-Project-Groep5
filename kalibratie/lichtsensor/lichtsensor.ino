@@ -1,23 +1,26 @@
-/*
- * Robotics with the BOE Shield - PhototransistorVoltage
- * Display voltage of phototransistor circuit output connected to A3 in
- * the serial monitor.
- */
-
-void setup()                                 // Built-in initialization block
+void setup()
 {
-  Serial.begin(9600);                        // Set data rate to 9600 bps
+  Serial.begin(9600);
 }
 
-void loop()                                  // Main loop auto-repeats
+void loop()
 {
-  Serial.print("A0 = ");                     // Display "A3 = "
-  Serial.print(volts(A0));                    // Display measured A3 volts
-  Serial.println(" volts");                  // Display " volts" & newline
-  delay(1000);                               // Delay for 1 second
+  measurement(30);
 }
-                                             
-float volts(int adPin)                       // Measures volts at adPin
-{                                            // Returns floating point voltage
- return float(analogRead(adPin)) * 5.0 / 1024.0;
-} 
+
+void measurement(int times)
+{
+  float total = 0.00;
+  for (int i = 0; i < times; i++)
+  {
+    float volt = float(analogRead(A0)) * 5.0 / 1024.0;
+    total = total + volt;
+    Serial.print("A0 = ");
+    Serial.print(volt);
+    Serial.println(" volts");
+    delay(1000);
+  }
+  float average = total / times;
+  Serial.print("Average = ");
+  Serial.println(average);
+}
