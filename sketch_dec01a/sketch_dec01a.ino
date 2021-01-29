@@ -11,8 +11,6 @@
 #define WIFI_SSID "***"
 #define WIFI_PASSWORD "***"
 
-
-
 // Define FirebaseESP8266 data object for data sending and receiving
 FirebaseData firebaseData;
 
@@ -23,9 +21,7 @@ int laserDetectorPin = D6;
 
 void setup()
 {
-
   Serial.begin(9600);
-
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
   while (WiFi.status() != WL_CONNECTED)
@@ -33,6 +29,8 @@ void setup()
     Serial.print(".");
     delay(300);
   }
+  
+  // Feedback for a successfull wifi connection
   Serial.println();
   Serial.print("Connected with IP: ");
   Serial.println(WiFi.localIP());
@@ -48,24 +46,18 @@ void setup()
 
   // Enable auto reconnect the WiFi when connection lost
   Firebase.reconnectWiFi(true);
-
 }
 
-
-void sendJson(FirebaseJson json, String doc){
-
+void sendJson(FirebaseJson json, String doc)
+{
   // Doc path esample like: doc="/test" 
-
-if (Firebase.pushJSON(firebaseData, doc, json)) {
-
+  if (Firebase.pushJSON(firebaseData, doc, json)) {
   Serial.println(firebaseData.dataPath() + "/"+ firebaseData.pushName());
-
-} else {
-  Serial.println(firebaseData.errorReason());
-}
-
-}
-
+  } 
+  else {
+    Serial.println(firebaseData.errorReason());
+  }
+  }
 
 void loop()
 {
@@ -105,7 +97,5 @@ void loop()
 
   //60 * 60 * 1000 ms
   int hour = 3600000;
-
   delay(hour);
-
 }
