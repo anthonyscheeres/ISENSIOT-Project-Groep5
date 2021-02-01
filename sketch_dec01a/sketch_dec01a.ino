@@ -8,8 +8,8 @@
 #define ID_HASH "/21232f297a57a5a743894a0e4a801fc3e033ba9cd693f9e833c72e9055d2c491"
 
 // Change this to your own wifi credentials and make sure to keep them private
-#define WIFI_SSID "***"
-#define WIFI_PASSWORD "***"
+#define WIFI_SSID "StalenStan"
+#define WIFI_PASSWORD "StalenStan"
 
 // Define FirebaseESP8266 data object for data sending and receiving
 FirebaseData firebaseData;
